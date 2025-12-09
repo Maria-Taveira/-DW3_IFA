@@ -1,0 +1,117 @@
+{% extends "templates/base.html" %}
+
+{% block content %}
+  
+  <ol class="breadcrumb mb-2">
+    <li class="breadcrumb-item active">{{parametros.title}}</li>
+  </ol>
+  
+  <div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+      <h6 class="m-0 font-weight-bold text-primary">Listagem de Médicos</h6>
+      <button class="btn btn-success" onclick="abrirManutencao()">
+        <i class="fas fa-plus"></i> Novo Médico
+      </button>
+    </div>
+
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTableMedico" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>Especialidade</th>
+            </tr>
+          </thead>
+          <tbody id="listaMedico">
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+<script src="/static/js/api.js"></script>
+<script src="/static/js/medico.js"></script>
+<script>
+    window.onload = function () {
+        carregarMedico();
+    };
+    
+    /**
+     * Redireciona para a página de Manutenção (Inserção ou Edição).
+     * @param {number} id - O ID do tutor (0 para novo).
+     */
+    function abrirManutencao(id = 0) {
+        if (id === 0) {
+            window.location.href = '/medico/manutencao';
+        } else {
+            window.location.href = `/medico/manutencao?medicoid=${id}`;
+        }
+    }
+
+    /**
+     * Função para chamar a API GetAllTutores e popular a tabela.
+     */
+    async function carregarMedico() {
+        const listaBody = document.getElementById('listaMedico');
+        listaBody.innerHTML = '<tr><td colspan="6">Carregando dados...</td></tr>';
+
+        const response = await fetchAPI('/getAllTutores', {
+            method: 'GET'
+        });
+
+        listaBody.innerHTML = '';
+
+        if (response.status === 'ok' && response.registro) {
+            
+            if ($.fn.DataTable.isDataTable('#dataTableMedico')) {
+                $('#dataTableMedico').DataTable().destroy();
+            }
+
+            response.registro.forEach(medico => {
+                const row = listaBody.insertRow();
+                row.insertCell(0).textContent = medico.medicoid;
+                row.insertCell(1).textContent = medico.nome;
+                row.insertCell(4).textContent = medico.especialidade;
+
+                const acoesCell = row.insertCell(5);
+                acoesCell.innerHTML = `
+                    <button class="btn btn-sm btn-info me-2" title="Editar" onclick="abrirManutencao(${medico.medicoid})">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-danger" title="Excluir (Soft Delete)" onclick="deletarTutor(${medico.medicoid}, '${medico.nome}')">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+            });
+            
+            $('#dataTableMedico').DataTable(); 
+
+        } else {
+            listaBody.innerHTML = '<tr><td colspan="6" class="text-danger">Não foi possível carregar o Médico. Erro: ' + (response.message || 'Desconhecido') + '</td></tr>';
+        }
+    }
+
+    /**
+     * Executa o Soft Delete.
+     */
+    async function deletarMedico(id, nome) {
+        if (confirm(`Deseja realmente desativar (Soft Delete) o médico ${nome} (ID: ${id})?`)) {
+            
+            const response = await fetchAPI('/deleteMedico', {
+                method: 'POST',
+                body: JSON.stringify({ medicoid: id })
+            });
+
+            if (response.status === 'ok' && response.linhasAfetadas > 0) {
+                alert('Médico desativado com sucesso.');
+                carregarMedico();
+            } else {
+                alert('Falha ao desativar. Erro: ' + (response.message || 'Desconhecido'));
+            }
+        }
+    }
+</script>
+
+{% endblock %}
