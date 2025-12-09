@@ -34,13 +34,13 @@ const insertMedico = async (nomeMedicoPar, especialidePar) => {
     
     let linhasAfetadas;
     let msg = "ok";
-    let medicoid = 0; // 🚨 Alterado de tutorid para medicoid
+    let medicoid = 0; 
 
     try {
         const result = await db.query( 
             "INSERT INTO medico (nomemedico,especialidade) " +
             "VALUES ($1, $2) RETURNING medicoid", 
-            [nomeMedicoPar, especialidePar] // 🚨 Correção de variáveis
+            [nomeMedicoPar, especialidePar] 
         );
         
         if (result.rows.length > 0) {
@@ -70,7 +70,7 @@ const updateMedico = async (medicoREGPar) => {
                 "UPDATE medico SET " +
                 "nomemedico = $2, " +
                 "especialidade = $3 " +
-                "WHERE medicoid = $1", // 🚨 Correção da cláusula WHERE (tutorid -> medicoid)
+                "WHERE medicoid = $1",
                 [
                     medicoREGPar.medicoid,
                     medicoREGPar.nomemedico,
@@ -88,7 +88,7 @@ const updateMedico = async (medicoREGPar) => {
 };
 
 
-const deleteMedico = async (medicoREGPar) => { // 🚨 Alterado o nome do parâmetro para minúsculas para consistência
+const deleteMedico = async (medicoREGPar) => { 
     
     let linhasAfetadas;
     let msg = "ok";

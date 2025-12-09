@@ -41,7 +41,7 @@ Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-    "medicoid": 1
+    "medicoid":2
 }
 
 ### 5. ATUALIZAÇÃO (U) - UpdateMedico

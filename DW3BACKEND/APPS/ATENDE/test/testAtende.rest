@@ -1,0 +1,56 @@
+### 1. LOGIN
+# @name loginAutenticado
+POST http://localhost:4000/Login HTTP/1.1
+Content-Type: application/json
+
+{ "UserName": "admin", "Password": "admin" }
+
+### Seta Token
+@accessToken = {{loginAutenticado.response.body.token}}
+
+
+### 2. INSERIR ATENDIMENTO (C)
+POST http://localhost:4000/insertAtende HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "pacienteidfk": 6,  
+  "medicoidfk": 2 
+}
+
+### 3. BUSCAR TODOS OS ATENDIMENTOS (R)
+GET http://localhost:4000/getAllAtende HTTP/1.1
+Authorization: Bearer {{accessToken}}
+
+
+### 4. BUSCAR ATENDIMENTO POR ID (R)
+POST http://localhost:4000/getAtendeByID HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{ 
+  "atendeid": 1 
+}
+
+
+### 5. ATUALIZAR ATENDIMENTO (U)
+POST http://localhost:4000/updateAtende HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "atendeid": 2,         
+  "pacienteidfk": 6,     
+  "medicoidfk": 2       
+}
+
+
+### 6. DELETAR ATENDIMENTO ( - Soft Delete)
+POST http://localhost:4000/deleteAtende HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{ 
+  "atendeid": 1 
+}

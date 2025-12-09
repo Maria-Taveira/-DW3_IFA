@@ -12,7 +12,6 @@ Content-Type: application/json
 @accessToken = {{loginAutenticado.response.body.token}}
 
 ---
-
 ### 2. INSERIR Paciente (C)
 # @name insertPaciente
 POST http://localhost:4000/insertPaciente HTTP/1.1
@@ -20,8 +19,8 @@ Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-    "nome": "Maria Beatriz",
-    "data_nascimento": "2005-04-04"
+    "nomepaciente": "Maria Beatriz", 
+    "datanascimento": "2005-04-04"  
 }
 
 ###
@@ -41,13 +40,12 @@ Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-    "pacienteid": 1
+    "pacienteid": 6
 }
 
 ###
 
 ---
-
 
 ### 5. ATUALIZAÇÃO (U) - UpdatePaciente
 POST http://localhost:4000/updatePaciente HTTP/1.1
@@ -55,19 +53,19 @@ Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-    "tutorid": 1,
-    "nomepaciente": "Maria Beatriz",
-    "data_nascimento": "2005-04-01",
-
-
+    "pacienteid": 2, 
+    "nomepaciente": "Maria  Silva", 
+    "datanascimento": "2435-04-05"            
 }
+
+
 ### 6. DELETAR Paciente (D) - Soft Delete
 POST http://localhost:4000/deletePaciente HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-    "pacienteid": 1
+    "pacienteid": 2
 }
 
 ### 7. VERIFICAR SE FOI DELETADO
@@ -76,5 +74,5 @@ Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-    "pacienteid": 1
+    "pacienteid": 2
 }

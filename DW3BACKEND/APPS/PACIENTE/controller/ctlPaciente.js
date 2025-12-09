@@ -1,51 +1,92 @@
-const mdlPets = require("../model/mdlPaciente");
+const mdlPaciente = require("../model/mdlPaciente");
 
-const getAllPaciente = (req, res) =>
-  (async () => {
-    let registro = await mdlPaciente.getAllPaciente();
-    res.json({ status: "ok", "registro": registro });
-})();
-
-
-const getPacienteByID = (req, res) =>
-  (async () => {
-    const pacienteid = parseInt(req.body.pacienteid);
-
-    let registro = await mdlPaciente.getPacienteByID(pacienteid);
-    res.json({ status: "ok", "registro": registro });
-})();
+const getAllPaciente = async (req, res) => {
+    try {
+        let registro = await mdlPaciente.getAllPaciente();
+        res.status(200).json({ status: "ok", registro: registro });
+    } catch (error) {
+        console.error("Erro no Controller [getAllPaciente]:", error);
+        res.status(500).json({ message: "Erro interno ao buscar Pacientes." });
+    }
+};
 
 
-const insertPaciente = (request, res) =>
-  (async () => {
-    const pacienteREG = request.body; 
-    
-    let { msg, linhasAfetadas } = await mdlPaciente.insertPaciente(pacienteREG);
-    
-    res.json({ "status": msg, "linhasAfetadas": linhasAfetadas });
-  })();
+const getPacienteByID = async (req, res) => {
+    try {
+        // Na maioria das vezes, o ID vem de params ou query, mas aqui assumimos body
+        const pacienteid = parseInt(req.body.pacienteid); 
+
+        let registro = await mdlPaciente.getPacienteByID(pacienteid);
+
+        if (!registro) {
+            return res.status(404).json({ message: "Paciente não encontrado ou inativo." });
+        }
+        res.status(200).json({ status: "ok", registro: [registro] });
+    } catch (error) {
+        console.error("Erro no Controller [getPacienteByID]:", error);
+        res.status(500).json({ message: "Erro interno ao buscar Paciente por ID." });
+    }
+};
 
 
-const updatePaciente = (request, res) =>
-  (async () => {
-    const pacienteREG = request.body;
-    let { msg, linhasAfetadas } = await mdlPaciente.updatePaciente(pacienteREG);
-    res.json({ "status": msg, "linhasAfetadas": linhasAfetadas });
-})();
+const insertPaciente = async (req, res) => {
+    try {
+        const pacienteREG = req.body; 
+        
+        // **OPCIONAL:** Adicionar validação básica aqui, se necessário
+        
+        let { msg, linhasAfetadas } = await mdlPaciente.insertPaciente(pacienteREG);
+        
+        if (linhasAfetadas > 0) {
+            res.status(201).json({ "status": msg, "linhasAfetadas": linhasAfetadas });
+        } else {
+            res.status(400).json({ "status": msg, "linhasAfetadas": linhasAfetadas });
+        }
+    } catch (error) {
+        console.error("Erro no Controller [insertPaciente]:", error);
+        res.status(500).json({ message: "Erro interno no servidor." });
+    }
+};
 
 
-const deletePaciente = (request, res) =>
-  (async () => {
-    const pacienteREG = request.body;
-    
-    let { msg, linhasAfetadas } = await mdlPaciente.deletePaciente(pacienteREG);
-    res.json({ "status": msg, "linhasAfetadas": linhasAfetadas });
-  })();
+const updatePaciente = async (req, res) => {
+    try {
+        const pacienteREG = req.body;
+        let { msg, linhasAfetadas } = await mdlPaciente.updatePaciente(pacienteREG);
+        
+        if (linhasAfetadas > 0) {
+            res.status(200).json({ "status": msg, "linhasAfetadas": linhasAfetadas });
+        } else {
+            res.status(404).json({ "status": "Not Found", "linhasAfetadas": 0 });
+        }
+    } catch (error) {
+        console.error("Erro no Controller [updatePaciente]:", error);
+        res.status(500).json({ message: "Erro interno no servidor." });
+    }
+};
+
+
+const deletePaciente = async (req, res) => {
+    try {
+        const pacienteREG = req.body;
+        
+        let { msg, linhasAfetadas } = await mdlPaciente.deletePaciente(pacienteREG);
+        
+        if (linhasAfetadas > 0) {
+            res.status(200).json({ "status": msg, "linhasAfetadas": linhasAfetadas });
+        } else {
+            res.status(404).json({ "status": "Not Found", "linhasAfetadas": 0 });
+        }
+    } catch (error) {
+        console.error("Erro no Controller [deletePaciente]:", error);
+        res.status(500).json({ message: "Erro interno no servidor." });
+    }
+};
 
 module.exports = {
-  getAllPaciente,
-  getPacienteByID,
-  insertPaciente,
-  updatePaciente,
-  deletePaciente
+    getAllPaciente,
+    getPacienteByID,
+    insertPaciente,
+    updatePaciente,
+    deletePaciente
 };
