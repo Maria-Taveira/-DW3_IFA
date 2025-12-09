@@ -1,0 +1,55 @@
+{% extends "templates/base.html" %}
+
+{% block content %}
+
+    <ol class="breadcrumb mb-2">
+        <li class="breadcrumb-item"><a href="/pets">Pacientes</a></li>
+        <li class="breadcrumb-item active">{{parametros.title}}</li>
+    </ol>
+    
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary" id="manutencaoTitulo">Cadastrar Novo Paciente</h6>
+        </div>
+        <div class="card-body">
+            
+            <form id="formPacManutencao">
+                <input type="hidden" id="pacienteid" name="pacienteid" value="0">
+                
+                <div class="row">
+                    <div class="col-md-5 mb-3">
+                        <label for="nome" class="form-label">Nome*</label>
+                        <input type="text" class="form-control" id="nomepaciente" name="nomepaciente" required>
+                    </div>
+                                        
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="data_nascimento" class="form-label">Data de Nascimento</label>
+                        <input type="date" class="form-control" id="datanascimento" name="datanascimento">
+                    </div>
+                    
+                    <div class="col-md-8 mb-3">
+                        <label for="medicoid" class="form-label">Medico (Proprietário)*</label>
+                        <select class="form-select" id="medicoid" name="medicoid" required>
+                            <option value="">Carregando medicos...</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <button type="button" class="btn btn-primary me-2" onclick="salvarPaciente()">
+                        <i class="fas fa-save"></i> Salvar
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='/paciente'">
+                        <i class="fas fa-arrow-left"></i> Voltar
+                    </button>
+                    <p id="mensagemErro" class="text-danger mt-3"></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+<script src="/static/js/api.js"></script>
+<script src="/static/js/paciente.js"></script>
+
+{% endblock %}
