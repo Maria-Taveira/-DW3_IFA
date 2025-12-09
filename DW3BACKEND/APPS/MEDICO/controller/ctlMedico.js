@@ -1,15 +1,17 @@
 const mdlMedico = require("../model/mdlMedico");
 
 
-const getAllMedico = async (req, res, next) => {
-  try {
-    const registro = await mdlTutores.getAllMedico(); 
-    res.status(200).json({ status: "ok", registro });
 
-  } catch (error) {
-    console.error("Erro no Controller [getAllMedico]:", error);
-    res.status(500).json({ message: "Erro interno ao buscar médicos." });
-  }
+
+const getAllMedico = async (req, res, next) => {
+    try {
+        const registro = await mdlMedico.getAllMedico();
+        res.status(200).json({ status: "ok", registro });
+
+    } catch (error) {
+        console.error("Erro no Controller [getAllMedico]:", error);
+        res.status(500).json({ message: "Erro interno ao buscar médicos." });
+    }
 };
 
 
@@ -21,7 +23,7 @@ const getMedicoByID = async (req, res, next) => {
         if (!registro) {
             return res.status(404).json({ message: "Medico não encontrado ou inativo." });
         }
-        res.status(200).json({ status: "ok", registro: [registro] });    
+        res.status(200).json({ status: "ok", registro: [registro] });     
     }catch (error) {
         console.error("Erro no Controller [getMedicoByID]:", error);
         res.status(500).json({ message: "Erro interno ao buscar Medico por ID." });
@@ -32,7 +34,7 @@ const insertMedico = async (req, res, next) => {
     try {
         const { nomemedico, especialidade } = req.body;
         
-        if (!nome || especialidade) {
+        if (!nomemedico || !especialidade) { 
             return res.status(400).json({ message: "Nome e especialidade são obrigatórios para o cadastro." });
         }
 
@@ -85,7 +87,7 @@ const deleteMedico = async (req, res, next) => {
     try {
         const medicoREGPar = req.body; 
         
-        if (!medicoREGPar.tutorid) {
+        if (!medicoREGPar.medicoid) {
             return res.status(400).json({ message: "ID do médico é obrigatório para deletar." });
         }
 
@@ -101,7 +103,7 @@ const deleteMedico = async (req, res, next) => {
             res.status(404).json({ message: "Médico não encontrado ou ID inválido para desativação.", status: msg });
         }
     } catch (error) {
-        console.error("Erro no Controller [deleteTutores]:", error);
+        console.error("Erro no Controller [deleteMedico]:", error); 
         res.status(500).json({ message: "Erro interno no servidor." });
     }
 };

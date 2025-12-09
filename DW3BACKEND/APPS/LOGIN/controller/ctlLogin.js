@@ -1,8 +1,9 @@
 const jwt = require("jsonwebtoken");
 const bCrypt = require("bcryptjs"); 
-const mdlLogin = require("../model/mdlLogin"); 
+const mdlLogin = require("../model/mdlLogin");
 
-// login
+const SECRET_KEY = process.env.SECRET_API || 'fallback_key_muito_longa_e_unica';
+
 const Login = async (req, res, next) => { 
     const { UserName, Password } = req.body;
     
@@ -15,9 +16,9 @@ const Login = async (req, res, next) => {
     if (bCrypt.compareSync(Password, credencial[0].password)) {
         
         const username = credencial[0].username;
-        const userId = credencial[0].userid; // 💡 
+        const userId = credencial[0].userid; 
         
-        const token = jwt.sign({ username: username, id: userId }, process.env.SECRET_API, {
+        const token = jwt.sign({ username: username, id: userId }, SECRET_KEY, {
             expiresIn: '30d', 
         });
         
@@ -36,7 +37,7 @@ function AutenticaJWT(req, res, next) {
     const bearer = tokenHeader.split(" ");
     const token = bearer[1];
 
-    jwt.verify(token, process.env.SECRET_API, function (err, decoded) {
+    jwt.verify(token, SECRET_KEY, function (err, decoded) {
         if (err)
             return res.status(403).json({ auth: false, message: "JWT inválido ou expirado" });
 

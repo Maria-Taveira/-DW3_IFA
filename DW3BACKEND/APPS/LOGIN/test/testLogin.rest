@@ -4,13 +4,13 @@ content-type: application/json
 
 {
     "UserName": "admin",
-    "Password": "$2a$10$o.R9.mPjYgK4FzD8d3w2IeW.1cZq8D3x.yE8tW0m3GjQ.vN.gZ.9"
+    "Password": "admin"
 }
 
 ### teste de logout
 POST http://localhost:4000/logout HTTP/1.1
 content-type: application/json
-//Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzYzODc5NTgwLCJleHAiOjE3NjY0NzE1ODB9.UNTzoqGOLtb_NGpiwz903jhu0VMI9PmuFa1acRb34n4
+//Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOjEsImlhdCI6MTc2NTI4NTM4NCwiZXhwIjoxNzY3ODc3Mzg0fQ.kPalefJc_hAJZdZidjyonSeMzuF6-V2l5zeHlr0rNlo
 
 {    
   
@@ -18,4 +18,4 @@ content-type: application/json
 
 ### 3. TESTE ROTA PROTEGIDA: GET ALL Medico
 GET http://localhost:4000/getAllMedico HTTP/1.1
-Authorization: Bearer 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOjEsImlhdCI6MTc2NTI4NTM4NCwiZXhwIjoxNzY3ODc3Mzg0fQ.kPalefJc_hAJZdZidjyonSeMzuF6-V2l5zeHlr0rNlo
