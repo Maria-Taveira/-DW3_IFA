@@ -1,7 +1,6 @@
 const db = require("../../../database/databaseConfig");
 
 const getAllMedico = async () => {
-    console.log("[DEBUG-MÉDICO] Executando consulta GetAllMedico...");
     return (
         await db.query(
             `SELECT 
@@ -21,7 +20,7 @@ const getMedicoByID = async (idPar) => {
         await db.query(
             `SELECT 
                 m.medicoid, 
-                m.medicoid, 
+                m.nomemedico, 
                 m.especialidade 
                 from medico m 
                 WHERE medicoid = $1 AND deleted = false`, 
@@ -31,18 +30,17 @@ const getMedicoByID = async (idPar) => {
 };
 
 
-
 const insertMedico = async (nomeMedicoPar, especialidePar) => {
     
     let linhasAfetadas;
     let msg = "ok";
-    let tutorid = 0;
+    let medicoid = 0; // 🚨 Alterado de tutorid para medicoid
 
     try {
         const result = await db.query( 
             "INSERT INTO medico (nomemedico,especialidade) " +
             "VALUES ($1, $2) RETURNING medicoid", 
-            [nomePar, especialideParPar]
+            [nomeMedicoPar, especialidePar] // 🚨 Correção de variáveis
         );
         
         if (result.rows.length > 0) {
@@ -61,8 +59,7 @@ const insertMedico = async (nomeMedicoPar, especialidePar) => {
 };
 
 
-
-const updateMedico = async (meidicoREGPar) => {
+const updateMedico = async (medicoREGPar) => {
     
     let linhasAfetadas;
     let msg = "ok";
@@ -73,7 +70,7 @@ const updateMedico = async (meidicoREGPar) => {
                 "UPDATE medico SET " +
                 "nomemedico = $2, " +
                 "especialidade = $3 " +
-                "WHERE tutorid = $1",
+                "WHERE medicoid = $1", // 🚨 Correção da cláusula WHERE (tutorid -> medicoid)
                 [
                     medicoREGPar.medicoid,
                     medicoREGPar.nomemedico,
@@ -91,8 +88,7 @@ const updateMedico = async (meidicoREGPar) => {
 };
 
 
-
-const deleteMedico = async (MedicoREGPar) => {
+const deleteMedico = async (medicoREGPar) => { // 🚨 Alterado o nome do parâmetro para minúsculas para consistência
     
     let linhasAfetadas;
     let msg = "ok";

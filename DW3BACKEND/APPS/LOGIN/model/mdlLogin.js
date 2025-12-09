@@ -1,10 +1,10 @@
 const db = require("../../../database/databaseConfig");
 
-const GetCredencial = async (loginPar) => { //busca o usuário no banco
+const GetCredencial = async (loginPar) => { 
   return (
     await db.query(
-      "select username, password " +
-        "from usuarios where username = $1 and deleted = false",
+      "SELECT userid, username, password " + 
+      "FROM usuarios WHERE username = $1",
       [loginPar]
     )
   ).rows;
