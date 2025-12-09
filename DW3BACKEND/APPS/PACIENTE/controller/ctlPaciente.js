@@ -13,7 +13,6 @@ const getAllPaciente = async (req, res) => {
 
 const getPacienteByID = async (req, res) => {
     try {
-        // Na maioria das vezes, o ID vem de params ou query, mas aqui assumimos body
         const pacienteid = parseInt(req.body.pacienteid); 
 
         let registro = await mdlPaciente.getPacienteByID(pacienteid);
@@ -33,7 +32,6 @@ const insertPaciente = async (req, res) => {
     try {
         const pacienteREG = req.body; 
         
-        // **OPCIONAL:** Adicionar validação básica aqui, se necessário
         
         let { msg, linhasAfetadas } = await mdlPaciente.insertPaciente(pacienteREG);
         

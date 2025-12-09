@@ -6,9 +6,9 @@ const getAllAtende = async () => {
       `SELECT 
         a.atendeid,
         a.pacienteidfk,
-        p.nomepaciente AS nome_paciente, -- Traz o nome do paciente
+        p.nomepaciente AS nome_paciente, 
         a.medicoidfk,
-        m.nomemedico AS nome_medico,     -- Traz o nome do médico
+        m.nomemedico AS nome_medico,     
         a.deleted
     FROM atende a
     INNER JOIN paciente p ON a.pacienteidfk = p.pacienteid

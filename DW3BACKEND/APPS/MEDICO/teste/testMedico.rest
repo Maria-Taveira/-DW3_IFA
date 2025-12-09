@@ -24,7 +24,6 @@ Authorization: Bearer {{accessToken}}
     "especialidade":"Cardiologista"
 }
 
-### CAPTURA O ID DINÂMICO APÓS A INSERÇÃO DA REQUISIÇÃO ABAIXO (NOVA POSIÇÃO CORRETA)
 @medicoIDCriado = {{insertNovoMedico.response.body.medicoid}} 
 
 ---
