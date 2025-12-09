@@ -1,14 +1,14 @@
 ### teste delogin
-POST http://localhost:40000/Login HTTP/1.1
+POST http://localhost:4000/login HTTP/1.1
 content-type: application/json
 
 {
     "UserName": "admin",
-    "Password": "admin"
+    "Password": "$2a$10$o.R9.mPjYgK4FzD8d3w2IeW.1cZq8D3x.yE8tW0m3GjQ.vN.gZ.9"
 }
 
 ### teste de logout
-POST http://localhost:40000/Logout HTTP/1.1
+POST http://localhost:4000/logout HTTP/1.1
 content-type: application/json
 //Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzYzODc5NTgwLCJleHAiOjE3NjY0NzE1ODB9.UNTzoqGOLtb_NGpiwz903jhu0VMI9PmuFa1acRb34n4
 
@@ -17,5 +17,5 @@ content-type: application/json
 }
 
 ### 3. TESTE ROTA PROTEGIDA: GET ALL Medico
-GET http://localhost:40000/getAllTutores HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzYzODc5NTgwLCJleHAiOjE3NjY0NzE1ODB9.UNTzoqGOLtb_NGpiwz903jhu0VMI9PmuFa1acRb34n4
+GET http://localhost:4000/getAllMedico HTTP/1.1
+Authorization: Bearer 

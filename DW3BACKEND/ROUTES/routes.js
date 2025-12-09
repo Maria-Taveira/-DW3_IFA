@@ -2,8 +2,8 @@ const express = require("express");
 const routerApp = express.Router();
 
 // --- IMPORTS ---
-const appMedico = require("../apps/tutores/controller/ctlTutores");
-const appPaciente = require("../apps/pets/controller/ctlPets");
+const appMedico = require("../apps/medico/controller/ctlMedico");
+const appPaciente = require("../apps/paciente/controller/ctlPaciente");
 const appLogin = require("../apps/login/controller/ctlLogin");
 //const appPetServicos = require("../apps/pet_servicos/controller/ctlPetServicos");
 
@@ -41,7 +41,7 @@ routerApp.post("/deletePaciente", appLogin.AutenticaJWT, appPaciente.deletePacie
 //routerApp.post("/deletePetServicos", appLogin.AutenticaJWT, appPetServicos.deletePetServicos);
 
 // --- ROTAS DE LOGIN ---
-routerApp.post("/Login", appLogin.Login);
-routerApp.post("/Logout", appLogin.Logout);
+routerApp.post("/login", appLogin.Login);
+routerApp.post("/logout", appLogin.Logout);
 
 module.exports = routerApp;

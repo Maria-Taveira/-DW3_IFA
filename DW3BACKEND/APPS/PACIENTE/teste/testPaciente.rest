@@ -1,6 +1,6 @@
 ### 1. LOGIN (Para pegar o Token)
 # @name loginAutenticado
-POST http://localhost:40000/Login HTTP/1.1
+POST http://localhost:4000/Login HTTP/1.1
 Content-Type: application/json
 
 {
@@ -15,7 +15,7 @@ Content-Type: application/json
 
 ### 2. INSERIR Paciente (C)
 # @name insertPaciente
-POST http://localhost:40000/insertPaciente HTTP/1.1
+POST http://localhost:4000/insertPaciente HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
@@ -30,13 +30,13 @@ Authorization: Bearer {{accessToken}}
 ---
 
 ### 3. BUSCAR TODOS OS Pacientes (R)
-GET http://localhost:40000/getAllPaciente HTTP/1.1
+GET http://localhost:4000/getAllPaciente HTTP/1.1
 Authorization: Bearer {{accessToken}}
 
 ---
 
 ### 4. BUSCAR Paciente POR ID (R)
-POST http://localhost:40000/getPacienteByID HTTP/1.1
+POST http://localhost:4000/getPacienteByID HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
@@ -50,7 +50,7 @@ Authorization: Bearer {{accessToken}}
 
 
 ### 5. ATUALIZAÇÃO (U) - UpdatePaciente
-POST http://localhost:40000/updatePaciente HTTP/1.1
+POST http://localhost:4000/updatePaciente HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
@@ -62,7 +62,7 @@ Authorization: Bearer {{accessToken}}
 
 }
 ### 6. DELETAR Paciente (D) - Soft Delete
-POST http://localhost:40000/deletePaciente HTTP/1.1
+POST http://localhost:4000/deletePaciente HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
@@ -71,7 +71,7 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### 7. VERIFICAR SE FOI DELETADO
-POST http://localhost:40000/getPacienteByID HTTP/1.1
+POST http://localhost:4000/getPacienteByID HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
