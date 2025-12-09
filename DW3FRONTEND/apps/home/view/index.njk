@@ -1,0 +1,105 @@
+{% extends "templates/base.html" %}
+
+{% block content %}
+  
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">{{parametros.title}}</li>
+  </ol>
+  
+  <div class="row">
+    <div class="col-12">
+      <div class="card bg-light mb-4">
+        <div class="card-header">
+          <i class="fas fa-chart-line me-1"></i>
+          Visão Geral do Hospital
+        </div>
+        <div class="card-body">
+          <p class="lead">Bem-vindo(a), {{ parametros.userName }}!</p>
+          <p>Este é o painel de controle dos módulos de Cadastro de Pacientes, Médicos e Serviços.</p>
+          <p>Use o menu lateral para gerenciar os dados ou clique nos cartões abaixo para acesso rápido.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-start border-primary border-4 shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col me-2">
+              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                Medico
+              </div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">Gerenciar Médicos</div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-user-friends fa-2x text-gray-300"></i>
+            </div>
+          </div>
+          <a href="/medico" class="stretched-link"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-start border-success border-4 shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col me-2">
+              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                Paciente
+              </div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">Gerenciar Pacientes</div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-paw fa-2x text-gray-300"></i>
+            </div>
+          </div>
+          <a href="/Pacientes" class="stretched-link"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-start border-warning border-4 shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col me-2">
+              <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                Atende
+              </div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">Gerenciar Catálogo</div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-handshake fa-2x text-gray-300"></i>
+            </div>
+          </div>
+          <a href="/atende" class="stretched-link"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-start border-danger border-4 shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col me-2">
+              <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                Atendimentos
+              </div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">Histórico e Agendamento</div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-calendar-check fa-2x text-gray-300"></i>
+            </div>
+          </div>
+          <a href="/atende" class="stretched-link"></a>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+{% endblock %}
